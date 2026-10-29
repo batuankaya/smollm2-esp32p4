@@ -17,6 +17,8 @@ Sen bu ders projesinin kod yazıcısısın. Proje: SmolLM2-135M-Instruct'ı voca
 - Perplexity yerine bits-per-byte kullan (`eval/bpb.py`).
 - Vocab küçültürken `<|im_start|>`, `<|im_end|>`, `<|endoftext|>` ve JSON karakterleri (`{ } [ ] : , "` ve rakamlar) her zaman korunur.
 - 10 dakikadan uzun sürecek hiçbir şeyi başlatma. Eğitim scriptleri için sadece birkaç adımlık bir duman testi (`--max_steps 5` gibi) çalıştır ve tam komutu raporuna yaz.
+- Eğitim scriptleri `logs/<run_adi>.log` dosyasına (stdout'a da) şu formatta yazar, `egitim-takipci` ajanı bu formatı okur:
+  başta `START run=<ad> total_steps=<int> ...config...`, her N adımda `step=<int> loss=<float> [ce=<float> kl=<float>] lr=<float> tok/s=<float> mem_GB=<float> elapsed=<s>`, eval'de `eval step=<int> bpb=<float>`, sonda `DONE` ya da hata durumunda `ERROR <mesaj>` + traceback. Satırları hemen flush et.
 - Bellek: 12GB GPU. Batch boyutunu, gradient accumulation ve bf16 autocast'i buna göre seç.
 - Model ağırlıklarını, veri setlerini ve checkpoint'leri git'e ekleme (`data/`, `checkpoints/`).
 - Commit atma. Commit'i ana oturum denetimden sonra atar.

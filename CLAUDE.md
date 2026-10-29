@@ -38,8 +38,13 @@ Derin öğrenme dersi projesi. Hazır bir dil modelini (SmolLM2-135M-Instruct) v
 - Her çalışan adımdan sonra açıklayıcı bir mesajla commit at.
 
 ## Subagent iş akışı
-`.claude/agents/` altında iki ajan var:
+`.claude/agents/` altındaki ajanlar:
 - `kod-yazici`: tanımı net bir kod parçasını yazar, kısa doğrulama çalıştırır, raporlar. Commit atmaz.
 - `kod-denetleyici`: değişiklikleri okur, projeye özel kontrol listesiyle (BPB hesabı, vocab eşleme, STE, 2-bit paketleme, PC↔ESP tutarlılığı…) denetler, kod değiştirmez.
+- `egitim-takipci`: ayrı terminalde çalışan eğitimin `logs/*.log` dosyasını okur; loss trendi, NaN, OOM, takılma, kalan süre raporlar. Uzun eğitimlerde `/loop 20m` ile periyodik çalıştırılabilir.
+- `veri-denetleyici`: komut veri setlerini eğitimden önce denetler (şema, geçersiz JSON, tekrar, test sızıntısı, denge, token uzunluğu); `eval/check_data.py` → `results/data_check.csv`.
 
-Akış: görev → `kod-yazici` → `kod-denetleyici` → bulgular varsa düzelt (gerekirse tekrar denetle) → kullanıcıya kısa açıklama → commit. Küçük, mekanik değişikliklerde (yorum, CLAUDE.md, tek satırlık düzeltme) ajan kullanmaya gerek yok.
+Akış: görev → `kod-yazici` → `kod-denetleyici` → bulgular varsa düzelt (gerekirse tekrar denetle) → kullanıcıya kısa açıklama → commit. Yeni/değişen veri seti → `veri-denetleyici` → temizlik → eğitim. Küçük, mekanik değişikliklerde (yorum, CLAUDE.md, tek satırlık düzeltme) ajan kullanmaya gerek yok.
+
+## Git hook
+`.githooks/pre-commit` dosyası `data/`, `checkpoints/` altındaki dosyaları, ağırlık uzantılarını (.safetensors, .bin, .pt…) ve 5 MiB üstü dosyaları commit'ten engeller. Yeni bir klonda bir kez etkinleştir: `git config core.hooksPath .githooks`
