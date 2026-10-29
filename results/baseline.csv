@@ -1,0 +1,3 @@
+model,dtype,dataset,vocab_size,params,ctx,stride,n_tokens,n_bytes,tokens_per_byte,bpb,token_ppl,seconds,note
+SmolLM2-135M-Instruct,fp32,wikitext-2-raw-v1/test,49152,134515008,2048,1024,301948,1287656,0.23449,0.9309,15.669,54.0,
+SmolLM2-360M-Instruct,fp32,wikitext-2-raw-v1/test,49152,361821120,2048,1024,301948,1287656,0.23449,0.82833,11.571,96.2,
