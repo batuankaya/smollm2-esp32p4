@@ -23,4 +23,6 @@ logs/
 *.log
 .ipynb_checkpoints/
 .vscode/
-.claude/
+.claude/*
+!.claude/agents/
+.claude/settings.local.json

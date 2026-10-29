@@ -36,3 +36,10 @@ Derin öğrenme dersi projesi. Hazır bir dil modelini (SmolLM2-135M-Instruct) v
 - Önemli bir parçayı (STE, vocab yeniden eşleme, ternary paketleme gibi) yazdıktan sonra bana kısaca açıkla. Bu bir ders projesi; kodu sunumda açıklayabilmem gerekiyor.
 - Model ağırlıklarını ve veri setlerini git'e ekleme.
 - Her çalışan adımdan sonra açıklayıcı bir mesajla commit at.
+
+## Subagent iş akışı
+`.claude/agents/` altında iki ajan var:
+- `kod-yazici`: tanımı net bir kod parçasını yazar, kısa doğrulama çalıştırır, raporlar. Commit atmaz.
+- `kod-denetleyici`: değişiklikleri okur, projeye özel kontrol listesiyle (BPB hesabı, vocab eşleme, STE, 2-bit paketleme, PC↔ESP tutarlılığı…) denetler, kod değiştirmez.
+
+Akış: görev → `kod-yazici` → `kod-denetleyici` → bulgular varsa düzelt (gerekirse tekrar denetle) → kullanıcıya kısa açıklama → commit. Küçük, mekanik değişikliklerde (yorum, CLAUDE.md, tek satırlık düzeltme) ajan kullanmaya gerek yok.
