@@ -1,0 +1,26 @@
+# Büyük dosyalar (git'e girmez)
+data/
+checkpoints/
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.gguf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ESP-IDF
+firmware/**/build/
+firmware/**/managed_components/
+firmware/**/sdkconfig.old
+
+# Diğer
+logs/
+*.log
+.ipynb_checkpoints/
+.vscode/
+.claude/
