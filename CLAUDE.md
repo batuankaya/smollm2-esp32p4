@@ -20,7 +20,12 @@ Derin öğrenme dersi projesi. Hazır bir dil modelini (SmolLM2-135M-Instruct) v
 - `data/`, `checkpoints/`: büyük dosyalar (git'e girmez)
 
 ## Komutlar
-(Kurulum bitince Python ortamı, eval ve ESP-IDF build/flash komutlarını buraya ekle.)
+- Proje konumu: `C:\Users\user\projects\smollm2-esp32p4` (OneDrive dışında)
+- Python ortamı (repo dışında): `C:\Users\user\.venvs\smollm-esp` (Python 3.11, torch 2.11+cu128, transformers 5.22, datasets 5.1)
+  - Aktifleştirme (PowerShell): `C:\Users\user\.venvs\smollm-esp\Scripts\Activate.ps1`
+  - Doğrudan çalıştırma: `C:/Users/user/.venvs/smollm-esp/Scripts/python.exe <script>`
+  - Paket ekleme: `$env:VIRTUAL_ENV='C:\Users\user\.venvs\smollm-esp'; uv pip install <paket>`
+- (Eval ve ESP-IDF build/flash komutları eklenecek.)
 
 ## Kurallar
 - Her ölçümü bir script `results/` altındaki bir CSV'ye yazar. Sonuç rakamlarını asla elle yazma ya da tahmin etme; her sonucu çalıştırdığın komut ve çıktısıyla göster.
